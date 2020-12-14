@@ -20,8 +20,12 @@ public class EmployeePayrollService {
 
     //http:/localhost:8080/employee-payroll/create (dto)
     public EmployeePayrollDTO CreateUser(EmployeePayrollDTO employeePayrollDto){
-        if(Objects.nonNull(employeePayrollDto.getName()) && Objects.nonNull(employeePayrollDto.getSalary())) {
-            EmployeePayroll employeePayroll = new EmployeePayroll(employeePayrollDto.getName(),employeePayrollDto.getSalary());
+        if(Objects.nonNull(employeePayrollDto.getName()) && Objects.nonNull(employeePayrollDto.getSalary()) &&
+                Objects.nonNull(employeePayrollDto.getGender()) && Objects.nonNull(employeePayrollDto.getDepartment()) &&
+                Objects.nonNull(employeePayrollDto.getStartDate())) {
+            EmployeePayroll employeePayroll = new EmployeePayroll(employeePayrollDto.getName(),employeePayrollDto.getSalary(),
+                                                                    employeePayrollDto.getGender(),employeePayrollDto.getDepartment(),
+                                                                    employeePayrollDto.getStartDate());
             return new EmployeePayrollDTO(employeePayrollRepository.save(employeePayroll));
         }
 
@@ -37,6 +41,15 @@ public class EmployeePayrollService {
             }
             if(Objects.nonNull(employeePayroll.getSalary())){
                 employeePayroll.setSalary(employeePayroll.getSalary());
+            }
+            if(Objects.nonNull(employeePayroll.getGender())){
+                employeePayroll.setGender(employeePayroll.getGender());
+            }
+            if(Objects.nonNull(employeePayroll.getDepartment())){
+                employeePayroll.setDepartment(employeePayroll.getDepartment());
+            }
+            if(Objects.nonNull(employeePayroll.getStartDate())){
+                employeePayroll.setStartDate(employeePayroll.getStartDate());
             }
             return new EmployeePayrollDTO(employeePayrollRepository.save(employeePayroll));
         }).orElseThrow(()-> new UserNotFound("UserNotFound"));

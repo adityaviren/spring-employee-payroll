@@ -5,6 +5,7 @@ import com.cg.spring.demo.domain.EmployeePayroll;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import java.util.Date;
 
 public class EmployeePayrollDTO {
     Long id;
@@ -14,6 +15,33 @@ public class EmployeePayrollDTO {
             @Pattern(regexp = "^[A-Za-z]{3,}")
     String name;
     String salary;
+    String gender;
+    String[] department;
+    Date startDate;
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String[] getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String[] department) {
+        this.department = department;
+    }
+
+    public Date getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(Date startDate) {
+        this.startDate = startDate;
+    }
 
     public String getName() {
         return name;
@@ -39,16 +67,22 @@ public class EmployeePayrollDTO {
         this.id = id;
     }
 
-    public EmployeePayrollDTO(Long id,String name, String salary) {
-        this.id=id;
+    public EmployeePayrollDTO(Long id, @NotNull(message = "Nope") @NotEmpty(message = "Nope") @Pattern(regexp = "^[A-Za-z]{3,}") String name, String salary, String gender, String[] department, Date startDate) {
+        this.id = id;
         this.name = name;
         this.salary = salary;
+        this.gender = gender;
+        this.department = department;
+        this.startDate = startDate;
     }
 
     public EmployeePayrollDTO(EmployeePayroll user){
         this.id = user.getId();
         this.name = user.getName();
         this.salary = user.getSalary();
+        this.gender = user.getGender();
+        this.department = user.getDepartment();
+        this.startDate = user.getStartDate();
     }
 
     public String toString(){
